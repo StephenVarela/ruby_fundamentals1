@@ -3,6 +3,7 @@
 distance = 0 #keeps track of distance from home
 energy = 100 # 100 is full energy
 user_action = "" #place holder variable to check user action
+personal_best = 0
 
 puts "Exercise Game! Valid commands include the following"
 puts "run/walk/rest/go home"
@@ -26,12 +27,34 @@ while true
       distance += 5
     end
   elsif user_action == "REST"
-      energy += 5
-      puts "You recover a bit!"
+      if energy+5 < 100
+        energy += 5
+        puts "You recover a bit!"
+      elsif energy >= 100
+        puts "you are already at full energy! get moving!"
+      end
   elsif user_action == "GO HOME"
+    if(distance >= personal_best)
+      puts "Congratulations new personal best! #{distance}Km"
+      personal_best = distance
+    else
+      puts "Good Job you ran: #{distance}Km and your personal best was #{personal_best}Km"
+    end
     distance = 0
-    puts "You are home! Goodbye"
-    break
+    energy = 100
+    puts "You are home! Would you like to exercise again?"
+
+    exercise_again = ""
+    until exercise_again == "YES" || exercise_again == "NO"
+      exercise_again = gets.chomp.upcase;
+      if exercise_again != "YES" && exercise_again != "NO"
+        puts "Invalid command: type either 'yes' or 'no'"
+      end
+    end
+    if(exercise_again == "NO")
+      break
+    end
+
   else
     puts "Error! Invalid command"
   end
@@ -49,3 +72,4 @@ while true
   end
 
 end
+puts("Thank you for playing!")
