@@ -39,4 +39,9 @@ while(true)
   end
   puts "Distance from home is #{distance}Km."
   puts "Your Energy is at #{energy}\%."
+  if (energy < 20)
+    puts "Warning your energy is low! Take a break"
+  end
+
+
 end
